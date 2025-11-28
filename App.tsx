@@ -2,12 +2,12 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './components/Login';
-import CadastroFluxo from './components/CadastroFluxo';
-import TelaAluno from './components/TelaAluno';
-import AreaTreinador from './components/AreaTreinador';
-import DetalheTreino from './components/DetalheTreino';
-import TreinosCliente from './components/TreinosCliente';
+import Login from './Login';
+import CadastroFluxo from './CadastroFluxo';
+import TelaAluno from './TelaAluno';
+import AreaTreinador from './AreaTreinador';
+import DetalheTreino from './DetalheTreino';
+import TreinosCliente from './TreinosCliente';
 
 const Stack = createNativeStackNavigator();
 
