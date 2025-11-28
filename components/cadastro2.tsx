@@ -1,0 +1,106 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import styles from '../styles/cadastro2';
+
+interface CadastroEtapa2Props {
+  onNext?: (data: any) => void;
+  onSkip?: () => void;
+  onBack?: () => void;
+}
+
+export default function CadastroEtapa2({ onNext, onSkip, onBack }: CadastroEtapa2Props) {
+  const [doenca, setDoenca] = useState('');
+  const [peso, setPeso] = useState('');
+  const [altura, setAltura] = useState('');
+
+  const handleNext = () => {
+    if (onNext) {
+      onNext({ doenca, peso, altura });
+    } else {
+      console.log('Etapa 2:', { doenca, peso, altura });
+    }
+  };
+
+  const handleSkip = () => {
+    if (onSkip) {
+      onSkip();
+    } else {
+      console.log('Pulou Etapa 2');
+    }
+  };
+
+  return (
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Botão Pular */}
+        <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
+          <Text style={styles.skipButtonText}>Pular</Text>
+        </TouchableOpacity>
+
+        <View style={styles.content}>
+          {/* Header */}
+          <View style={styles.header}>
+            <Text style={styles.title}>FitSync</Text>
+            <Text style={styles.stepIndicator}>Etapa 2 de 3</Text>
+            <Text style={styles.subtitle}>Informações de saúde</Text>
+          </View>
+
+          {/* Formulário */}
+          <View style={styles.form}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Tem alguma doença? Se sim, descreva.</Text>
+              <TextInput
+                style={[styles.input, { minHeight: 80, textAlignVertical: 'top' }]}
+                placeholder="Ex: Diabetes, Hipertensão, ou deixe vazio se não tiver"
+                placeholderTextColor="#999"
+                value={doenca}
+                onChangeText={setDoenca}
+                autoCapitalize="sentences"
+                multiline
+                numberOfLines={4}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Qual é o seu peso? (kg)</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Ex: 70"
+                placeholderTextColor="#999"
+                value={peso}
+                onChangeText={setPeso}
+                keyboardType="numeric"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Qual é a sua altura? (cm)</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Ex: 175"
+                placeholderTextColor="#999"
+                value={altura}
+                onChangeText={setAltura}
+                keyboardType="numeric"
+              />
+            </View>
+
+            <View style={styles.buttonRow}>
+              {onBack && (
+                <TouchableOpacity style={styles.backButton} onPress={onBack}>
+                  <Text style={styles.backButtonText}>Voltar</Text>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+                <Text style={styles.nextButtonText}>Continuar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+}
